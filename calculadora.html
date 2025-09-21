@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora JMRF</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #f4f4f4;
+    }
+
+    .contenedor {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+
+    .panel-izq {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .operacion {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    input {
+      width: 60px;
+      height: 60px;
+      text-align: center;
+      font-size: 1.5rem;
+      border: 2px solid #000;
+      border-radius: 6px;
+    }
+
+    .resultado {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem;
+    }
+
+    .resultado-box {
+      width: 80px;
+      height: 50px;
+      border: 2px solid #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 1.3rem;
+      background: #fff;
+    }
+
+    .panel-der {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    button {
+      width: 60px;
+      height: 40px;
+      font-size: 1.2rem;
+      border: 2px solid #000;
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+   
+    <div class="panel-izq">
+      <div class="operacion">
+        <div>
+          <label>Primer número</label><br>
+          <input type="number" id="num1" value="2">
+        </div>
+
+        <span id="simbolo">-</span>
+
+        <div>
+          <label>Segundo número</label><br>
+          <input type="number" id="num2" value="3">
+        </div>
+      </div>
+
+      <div class="resultado">
+        <span>El resultado es</span>
+        <div class="resultado-box" id="resultado"></div>
+      </div>
+    </div>
+
+    
+    <div class="panel-der">
+      <button data-op="+">+</button>
+      <button data-op="-">-</button>
+      <button data-op="*">*</button>
+      <button data-op="/">/</button>
+      <button data-op="%">%</button>
+      <button data-op="^">xⁿ</button>
+    </div>
+  </div>
+
+  <script>
+    const num1 = document.getElementById("num1");
+    const num2 = document.getElementById("num2");
+    const resultado = document.getElementById("resultado");
+    const simbolo = document.getElementById("simbolo");
+    const botones = document.querySelectorAll("button");
+
+    const calcular = (op) => {
+      const a = parseFloat(num1.value);
+      const b = parseFloat(num2.value);
+      let res;
+
+      simbolo.textContent = op; 
+
+      switch(op) {
+        case "+": res = a + b; break;
+        case "-": res = a - b; break;
+        case "*": res = a * b; break;
+        case "/": res = b !== 0 ? a / b : "∞"; break;
+        case "%": res = a % b; break;
+        case "^": res = Math.pow(a, b); break;
+      }
+      resultado.textContent = res;
+    };
+
+    botones.forEach(boton => {
+      boton.addEventListener("click", () => {
+        calcular(boton.dataset.op);
+      });
+    });
+  </script>
+</body>
+</html>
